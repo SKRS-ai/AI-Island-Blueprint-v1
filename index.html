@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Island | Solomon Kin LLC & RealAIID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #0A192F;
+            --electric-blue: #0072FF;
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --text-main: #E6F1FF;
+            --text-dim: #8892B0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--navy);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Background Elements */
+        .orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-white);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #FFF;
+        }
+
+        .logo span { color: var(--electric-blue); }
+
+        /* Hero Section */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #FFF, var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            background: var(--electric-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 114, 255, 0.5);
+        }
+
+        /* Feature Grid */
+        .grid-container {
+            padding: 100px 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-white);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--electric-blue);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--electric-blue);
+            margin-bottom: 20px;
+        }
+
+        .card h3 { margin-top: 0; }
+
+        /* Footer & Legal */
+        footer {
+            background: #060E1A;
+            padding: 60px 50px;
+            border-top: 1px solid var(--glass-white);
+            font-size: 0.9rem;
+        }
+
+        .legal-block {
+            color: var(--text-dim);
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        .copyright {
+            color: #FFF;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb" style="top: -100px; right: -100px;"></div>
+    <div class="orb" style="bottom: -100px; left: -100px;"></div>
+
+    <nav>
+        <div class="logo">SOLOMON KIN <span>LLC</span></div>
+        <div class="nav-links">
+            <span style="color: var(--text-dim); margin-right: 20px;">REALAIID GATEWAY</span>
+            <i class="fa-solid fa-fingerprint" style="color: var(--electric-blue); font-size: 1.5rem;"></i>
+        </div>
+    </nav>
+
+    <header>
+        <h1>AI ISLAND</h1>
+        <p class="tagline">The world’s first autonomous sovereign destination. A blueprint for future cities, powered by RealAIID™ biometric infrastructure and submerged oceanic compute centers.</p>
+        <a href="#explore" class="cta-btn">Initialize Experience</a>
+    </header>
+
+    <section class="grid-container" id="explore">
+        <div class="card">
+            <i class="fa-solid fa-anchor"></i>
+            <h3>The Zenith Pier</h3>
+            <p>Smart-mooring technology for the world's largest vessels. Zero-rope docking and automated robotic embarkation.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-water"></i>
+            <h3>The Abyss Gallery</h3>
+            <p>Undersea observation levels showcasing the industrial beauty of ocean-cooled data center hubs.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>RealAIID Integration</h3>
+            <p>Biometric handshake protocols that sync the physical island environment to your digital persona in real-time.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-microchip"></i>
+            <h3>The Core Sphere</h3>
+            <p>A functional civil-intelligence hub. 360° LED exosphere displaying the island's live neural traffic.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="legal-block">
+            <p class="copyright">© 2026 Solomon Kin LLC. All Intellectual Property Rights Reserved.</p>
+            <p>The concepts of <strong>AI Island</strong>, <strong>RealAIID</strong>, <strong>The Abyss Gallery</strong>, and <strong>Zenith Pier</strong> are proprietary assets of Solomon Kin LLC. Any unauthorized replication, derivative works, or commercial application of these architectural and logical frameworks is strictly prohibited under federal and international copyright statutes.</p>
+            <p>This site serves as a timestamped proof of invention and primary industrial design disclosure.</p>
+        </div>
+        <div class="footer-bottom">
+            <span>Engineering the Future of Human-Machine Integration.</span>
+        </div>
+    </footer>
+
+</body>
+</html>

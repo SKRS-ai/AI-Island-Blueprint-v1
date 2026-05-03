@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ISLAND | Sovereign Entry | RealAIID™</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --pure-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(56, 189, 248, 0.2);
+            --error-red: #f43f5e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--navy-void);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* --- MOVING BACKGROUND --- */
+        .bg-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .bg-image {
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+            background: url('ai-island-aerial-wide.jpg') center/cover no-repeat;
+            filter: brightness(0.4) saturate(1.2);
+            animation: kenBurns 40s infinite alternate ease-in-out;
+        }
+
+        @keyframes kenBurns {
+            from { transform: scale(1) translate(0, 0); }
+            to { transform: scale(1.2) translate(-2%, -2%); }
+        }
+
+        /* WAVE OVERLAY MASK */
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            background: linear-gradient(to top, rgba(56, 189, 248, 0.1), transparent);
+            opacity: 0.5;
+            z-index: 2;
+        }
+
+        /* --- LOGIN WRAPPER --- */
+        .entry-wrapper {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 50px 40px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+        }
+
+        /* --- LOGO & WELCOME --- */
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-header h3 {
+            font-family: 'JetBrains Mono';
+            font-size: 0.75rem;
+            color: var(--cyan-glow);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .welcome-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-header h2 span {
+            color: var(--cyan-glow);
+        }
+
+        /* --- FORM STYLES --- */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-family: 'JetBrains Mono';
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--cyan-glow);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--pure-white);
+            color: var(--navy-void);
+            border: none;
+            padding: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .btn-submit:hover {
+            background: var(--cyan-glow);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        /* --- BIO SIGN-IN SECTION --- */
+        .bio-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            font-family: 'JetBrains Mono';
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        .bio-divider::before, .bio-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bio-divider:not(:empty)::before { margin-right: .5em; }
+        .bio-divider:not(:empty)::after { margin-left: .5em; }
+
+        .biosign-button {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .biosign-button img {
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .biosign-button span {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            color: var(--cyan-glow);
+        }
+
+        .biosign-button:hover {
+            background: rgba(56, 189, 248, 0.05);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- REGISTER / LINKS --- */
+        .action-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .action-links a:hover { opacity: 1; color: var(--cyan-glow); }
+
+        /* HUD STATS ON CARD */
+        .card-hud {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono';
+            font-size: 0.6rem;
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+
+        /* --- SOVEREIGN DISCLAIMER --- */
+        .sovereign-legal {
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.65rem;
+            opacity: 0.3;
+            letter-spacing: 2px;
+            padding: 0 10%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-container">
+        <div class="bg-image"></div>
+        <div class="waves"></div>
+    </div>
+
+    <div class="entry-wrapper">
+        <div class="login-card">
+            <div class="welcome-header">
+                <h3>Welcome to AI ISLAND</h3>
+                <h2>BY <span>REALAiiD.com</span></h2>
+            </div>
+
+            <!-- Standard Auth -->
+            <form action="#" onsubmit="return false">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" class="input-field" placeholder="GUEST@SOVEREIGN.IO" required>
+                </div>
+                <div class="input-group">
+                    <label>Sovereign Passkey</label>
+                    <input type="password" class="input-field" placeholder="••••••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit" onclick="location.href='portal.html'">Open Sovereign Link</button>
+            </form>
+
+            <div class="bio-divider">OR BIO-AUTH</div>
+
+            <!-- BIO SIGN-IN (RealAIID Integration) -->
+            <button class="biosign-button" onclick="location.href='portal.html'">
+                <!-- bio-sign trademark logo -->
+                <img src="biosign_trademark_logo.png" alt="RealAIID Bio Sign" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=BA&backgroundColor=38bdf8'">
+                <span>Bio Sign-In</span>
+            </button>
+
+            <div class="action-links">
+                <a href="#">Join the Archipelago (Register)</a><br><br>
+                <a href="#">Request Key Recovery</a>
+            </div>
+
+            <div class="card-hud">
+                <span>DOME_STABILITY: 100%</span>
+                <span>SECURE_NODE: SK_LLC_MAIN</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sovereign-legal">
+        LEGAL: BY ENTERING THIS PORTAL, YOU ACKNOWLEDGE THE TERMS OF THE AI ISLAND PRIVATE MARITIME CHARTER. 
+        ALL DATA IS DECRYPTED VIA REALAIID™ ZERO-KNOWLEDGE PROTOCOLS. 
+        © 2026 SOLOMON KIN LLC.
+    </div>
+
+</body>
+</html>

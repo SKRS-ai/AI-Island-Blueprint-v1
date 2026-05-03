@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealAIID™ | Sovereign Portal | AI Island</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --security-red: #ef4444;
+            --pure-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(56, 189, 248, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--navy-void);
+            font-family: 'Urbanist', sans-serif;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* --- BACKGROUND HUD LAYER --- */
+        .hud-overlay {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 80%),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(56, 189, 248, 0.02) 1px, rgba(56, 189, 248, 0.02) 2px);
+            background-size: 100% 100%, 100% 4px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* --- NAV (Consistent with index) --- */
+        nav {
+            background: linear-gradient(to right, var(--navy-void), var(--navy-prime));
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 100;
+        }
+        .logo h2 { letter-spacing: 5px; font-weight: 800; text-transform: uppercase; font-size: 1.2rem; }
+        .logo span { color: var(--cyan-glow); }
+        .session-id { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow); opacity: 0.7; }
+
+        /* --- THE HANDSHAKE SEQUENCE --- */
+        .portal-main {
+            height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .auth-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .handshake-icon-wrap {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            cursor: pointer;
+        }
+
+        .scanner-ring {
+            position: absolute;
+            inset: 0;
+            border: 2px dashed var(--cyan-glow);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .fingerprint-core {
+            position: absolute;
+            inset: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--cyan-glow);
+            transition: 0.5s;
+        }
+
+        .handshake-icon-wrap:hover .fingerprint-core {
+            filter: drop-shadow(0 0 20px var(--cyan-glow));
+            transform: scale(1.05);
+        }
+
+        .auth-status {
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--cyan-glow);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+        .p-muted { opacity: 0.6; font-size: 1.1rem; margin-bottom: 40px; }
+
+        .btn-handshake {
+            background: var(--cyan-glow);
+            color: var(--navy-void);
+            padding: 20px 40px;
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+        .btn-handshake:hover { background: #fff; box-shadow: 0 0 30px var(--cyan-glow); }
+
+        /* --- DASHBOARD (HIDDEN UNTIL AUTH) --- */
+        #vault-dashboard {
+            display: none;
+            padding: 60px 10%;
+            width: 100%;
+            max-width: 1400px;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .vault-sidebar {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        .user-profile { text-align: center; margin-bottom: 40px; }
+        .avatar-wrap { width: 100px; height: 100px; border: 2px solid var(--cyan-glow); border-radius: 50%; margin: 0 auto 20px; overflow: hidden; padding: 5px; }
+        .avatar-wrap img { width: 100%; height: 100%; border-radius: 50%; background: var(--navy-prime); }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .vault-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .vault-card:hover { border-color: var(--cyan-glow); background: rgba(56, 189, 248, 0.05); }
+        .vault-card i { color: var(--cyan-glow); font-size: 1.5rem; margin-bottom: 20px; display: block; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .decryption-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'JetBrains Mono';
+            color: var(--cyan-glow);
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 2px;
+            background: rgba(56, 189, 248, 0.1);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loading-progress {
+            position: absolute;
+            left: 0; top: 0; height: 100%;
+            width: 0%;
+            background: var(--cyan-glow);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hud-overlay"></div>
+
+    <!-- MASTER HEADER -->
+    <nav>
+        <div class="logo">
+            <h2>REALAIID <span>/</span> PORTAL</h2>
+        </div>
+        <div class="session-id">SESSION_ID: AII_X_7749_B</div>
+    </nav>
+
+    <!-- AUTHENTICATION SCREEN -->
+    <section class="portal-main" id="auth-screen">
+        <div class="auth-container">
+            <div class="auth-status">● WAITING_FOR_BIOMETRIC_SYNC</div>
+            <div class="handshake-icon-wrap" onclick="initiateHandshake()">
+                <div class="scanner-ring"></div>
+                <div class="fingerprint-core">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+            </div>
+            <h1>The Handshake.</h1>
+            <p class="p-muted">Place your biometric signature to decrypt your sovereign vault and access AI Island services.</p>
+            <button class="btn-handshake" onclick="initiateHandshake()">Initiate Handshake</button>
+        </div>
+    </section>
+
+    <!-- DECRYPTION ANIMATION OVERLAY -->
+    <div class="decryption-overlay" id="loader">
+        <i class="fa-solid fa-shield-halved fa-beat" style="font-size: 3rem; margin-bottom: 20px;"></i>
+        <div id="loading-text">VERIFYING BIOMETRIC HASH...</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="progress"></div>
+        </div>
+    </div>
+
+    <!-- VAULT DASHBOARD (HIDDEN) -->
+    <section id="vault-dashboard" style="display: none;">
+        <div class="vault-sidebar">
+            <div class="user-profile">
+                <div class="avatar-wrap">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Solomon" alt="User Avatar">
+                </div>
+                <h3>Sovereign Resident</h3>
+                <p style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow);">REALAIID: AII-449-SK-LLC</p>
+            </div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 15px;">
+                <li><a href="#" style="color: var(--cyan-glow); text-decoration: none;"><i class="fa-solid fa-gauge-high" style="margin-right: 15px;"></i> Core Dashboard</a></li>
+                <li><a href="residency-manifest.pdf" style="color: #fff; text-decoration: none; opacity: 0.7;"><i class="fa-solid fa-house-user" style="margin-right: 15px;"></i> My Residency</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none; opacity: 0.7;"><i class="fa-solid fa-robot" style="margin-right: 15px;"></i> Drone Logistics</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none; opacity: 0.7;"><i class="fa-solid fa-biohazard" style="margin-right: 15px;"></i> Bio-Metrics</a></li>
+                <li style="margin-top: 30px;"><a href="index.html" style="color: var(--security-red); text-decoration: none;"><i class="fa-solid fa-power-off" style="margin-right: 15px;"></i> Terminate Link</a></li>
+            </ul>
+        </div>
+
+        <div class="vault-main">
+            <div style="margin-bottom: 40px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Sovereign <span>Vault</span></h2>
+                <p style="opacity: 0.6;">Welcome back. Your on-island systems are synchronized and stable.</p>
+            </div>
+
+            <div class="vault-grid">
+                <div class="vault-card">
+                    <i class="fa-solid fa-wallet"></i>
+                    <h4>Sovereign Reserves</h4>
+                    <p style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; margin: 10px 0;">2,450.00 AII</p>
+                    <span style="font-size: 0.7rem; opacity: 0.5;">≈ $12,400.00 USD</span>
+                </div>
+                <div class="vault-card">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <h4>Vitals Optimization</h4>
+                    <p style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; margin: 10px 0;">98%</p>
+                    <span style="font-size: 0.7rem; opacity: 0.5;">Cellular Repair Active</span>
+                </div>
+                <div class="vault-card">
+                    <i class="fa-solid fa-server"></i>
+                    <h4>SODR Compute Allocation</h4>
+                    <p style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; margin: 10px 0;">12.4 TFlops</p>
+                    <span style="font-size: 0.7rem; opacity: 0.5;">Submerged Ring #4</span>
+                </div>
+                <div class="vault-card">
+                    <i class="fa-solid fa-shield-cat"></i>
+                    <h4>Security Status</h4>
+                    <p style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; margin: 10px 0;">OMEGA</p>
+                    <span style="font-size: 0.7rem; opacity: 0.5;">All Barriers Sealed</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 12px;">
+                <h4 style="margin-bottom: 15px;"><i class="fa-solid fa-bell" style="color:var(--cyan-glow); margin-right: 10px;"></i> System Alerts</h4>
+                <p style="font-size: 0.85rem; opacity: 0.7;">● Atmospheric Dome synchronized to 'Mediterranean Sunrise' (06:00).</p>
+                <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;">● Drone Transport Pod #22 arriving at your vertiport in 4 minutes.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function initiateHandshake() {
+            const loader = document.getElementById('loader');
+            const progress = document.getElementById('progress');
+            const status = document.getElementById('loading-text');
+            const authScreen = document.getElementById('auth-screen');
+            const dashboard = document.getElementById('vault-dashboard');
+
+            loader.style.display = 'flex';
+            
+            const steps = [
+                { p: 20, t: "SCANNING BIOMETRIC ARRAY..." },
+                { p: 45, t: "CROSS-REFERENCING MARITIME LEDGER..." },
+                { p: 70, t: "DECRYPTING SOVEREIGN KEY..." },
+                { p: 90, t: "SYNCHRONIZING DOME PROTOCOLS..." },
+                { p: 100, t: "HANDSHAKE COMPLETE." }
+            ];
+
+            let stepIndex = 0;
+            const interval = setInterval(() => {
+                if (stepIndex < steps.length) {
+                    progress.style.width = steps[stepIndex].p + '%';
+                    status.innerText = steps[stepIndex].t;
+                    stepIndex++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            authScreen.style.display = 'none';
+                            dashboard.style.display = 'grid';
+                            document.body.style.overflowY = 'auto';
+                        }, 500);
+                    }, 800);
+                }
+            }, 800);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Wellness | Bio-Optimization | AI Island</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --pure-white: #ffffff;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --bio-green: #10b981;
+            --text-muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(56, 189, 248, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Urbanist', sans-serif; background-color: var(--pure-white); color: var(--navy-void); overflow-x: hidden; }
+
+        /* --- HEADER (Consistent Navy) --- */
+        nav {
+            background: linear-gradient(to right, var(--navy-void), #0f172a);
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo h2 { letter-spacing: 5px; text-transform: uppercase; font-size: 1.2rem; }
+        .logo span { color: var(--cyan-glow); }
+
+        /* --- HERO SECTION --- */
+        .wellness-hero {
+            height: 60vh;
+            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), url('http://googleusercontent.com/image_collection/image_retrieval/1831782299876258019');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 10%;
+        }
+        .wellness-hero h1 { font-size: 4.5rem; margin-bottom: 20px; text-transform: uppercase; font-weight: 800; }
+        .wellness-hero p { font-size: 1.5rem; max-width: 800px; font-family: 'JetBrains Mono'; color: var(--cyan-glow); }
+
+        /* --- VITAL DASHBOARD (WHITE SECTION) --- */
+        .dashboard-section {
+            padding: 100px 10%;
+            background: #fff;
+        }
+        .vital-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: -150px;
+            position: relative;
+            z-index: 20;
+        }
+        .vital-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .vital-card i { font-size: 2.5rem; color: var(--royal-blue); margin-bottom: 20px; }
+        .vital-card .value { font-size: 2.5rem; font-weight: 800; color: var(--navy-void); font-family: 'JetBrains Mono'; }
+        .vital-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 10px; }
+
+        /* --- TREATMENT MENU --- */
+        .treatment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 100px;
+            align-items: center;
+        }
+        .treatment-text h2 { font-size: 3rem; margin-bottom: 30px; }
+        .treatment-item {
+            padding: 30px;
+            border-left: 4px solid var(--cyan-glow);
+            background: #f8fafc;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .treatment-item:hover { background: var(--navy-void); color: #fff; transform: translateX(10px); }
+        .treatment-item h4 { font-size: 1.4rem; margin-bottom: 5px; }
+        .treatment-item span { font-size: 0.85rem; font-family: 'JetBrains Mono'; color: var(--cyan-glow); }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--navy-void);
+            padding: 80px 10%;
+            color: #fff;
+            text-align: center;
+        }
+        .bio-sync-btn {
+            background: var(--cyan-glow);
+            color: var(--navy-void);
+            padding: 20px 50px;
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo"><h2>AI ISLAND <span>/</span> AURA</h2></div>
+    <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow);">BIO_STATUS: SYNCHRONIZED</div>
+</nav>
+
+<section class="wellness-hero">
+    <h1>Recode <span>Your Biology</span></h1>
+    <p>Cellular Rejuvenation Powered by RealAIID™</p>
+</section>
+
+<section class="dashboard-section">
+    <div class="vital-grid">
+        <div class="vital-card">
+            <i class="fa-solid fa-dna"></i>
+            <div class="value">24.2</div>
+            <div class="label">Biological Age Index</div>
+        </div>
+        <div class="vital-card">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <div class="value">98%</div>
+            <div class="label">Cellular Repair Rate</div>
+        </div>
+        <div class="vital-card">
+            <i class="fa-solid fa-brain"></i>
+            <div class="value">114.8</div>
+            <div class="label">Neural Clarity Score</div>
+        </div>
+        <div class="vital-card">
+            <i class="fa-solid fa-shield-virus"></i>
+            <div class="value">Optimal</div>
+            <div class="label">Immune Fortress Status</div>
+        </div>
+    </div>
+
+    <div class="treatment-grid">
+        <div class="treatment-text">
+            <h2>The Aura <span>Longevity Menu</span></h2>
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px;">
+                Our Bio-Labs utilize the ocean's thermal mass and petascale AI to sequence personalized longevity protocols in real-time.
+            </p>
+            <div class="treatment-item">
+                <h4>Cryo-Regen Pods</h4>
+                <span>Deep Sea Thermal Shock // 300s</span>
+            </div>
+            <div class="treatment-item">
+                <h4>Neural Mapping</h4>
+                <span>High-Bandwidth BCI Optimization</span>
+            </div>
+            <div class="treatment-item">
+                <h4>Stem-Sync Infusion</h4>
+                <span>Autologous Rejuvenation // DNA Cleansing</span>
+            </div>
+        </div>
+        <div style="position: relative;">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/1831782299876258019" style="width: 100%; border-radius: 24px; box-shadow: 0 40px 80px rgba(0,0,0,0.1);" alt="Wellness Lab">
+        </div>
+    </div>
+</section>
+
+<footer>
+    <h2>Ready for your <span>next evolution?</span></h2>
+    <p style="opacity: 0.6; margin-top: 10px;">Connect your RealAIID™ to begin the Bio-Sync sequence.</p>
+    <button class="bio-sync-btn">Initiate Bio-Sync</button>
+</footer>
+
+</body>
+</html>

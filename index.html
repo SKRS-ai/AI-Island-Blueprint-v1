@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ISLAND | Solomon Kin LLC | The Sovereign Resort & Tech Frontier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --pure-white: #ffffff;
+            --border-light: rgba(15, 23, 42, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Urbanist', sans-serif; background-color: var(--pure-white); color: var(--text-dark); overflow-x: hidden; }
+
+        /* --- HUD TICKER --- */
+        .ticker-wrap {
+            background: var(--royal-blue);
+            color: #fff;
+            padding: 10px 0;
+            overflow: hidden;
+            font-family: 'JetBrains Mono';
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 3001;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .ticker {
+            display: flex;
+            gap: 60px;
+            animation: ticker 45s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- HEADER (NAVY BLUE) --- */
+        nav {
+            background: linear-gradient(to right, var(--navy-void), var(--navy-prime));
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            width: 100%;
+            top: 38px;
+            z-index: 3000;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo-group h2 { color: #fff; letter-spacing: 5px; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; }
+        .logo-group span { color: var(--cyan-glow); }
+
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; opacity: 0.7; }
+        .nav-links a:hover { opacity: 1; color: var(--cyan-glow); }
+
+        .realaiid-btn {
+            background: transparent;
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            padding: 12px 24px;
+            font-family: 'JetBrains Mono';
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+        .realaiid-btn:hover { background: var(--cyan-glow); color: var(--navy-void); box-shadow: 0 0 20px var(--cyan-glow); }
+
+        /* --- IMMERSIVE HERO CAROUSEL --- */
+        .hero-carousel {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            margin-top: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide.active { opacity: 1; z-index: 10; }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+            transform: scale(1.1);
+            transition: transform 15s linear;
+        }
+
+        .carousel-slide.active img { transform: scale(1.0); }
+
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 20%, rgba(2,6,23,0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            z-index: 20;
+        }
+
+        .slide-content h1 {
+            color: #fff;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            line-height: 0.85;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .slide-content p {
+            color: var(--cyan-glow);
+            font-family: 'JetBrains Mono';
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .slide-btn {
+            background: var(--cyan-glow);
+            color: var(--navy-void);
+            padding: 22px 50px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.4s;
+            border-radius: 2px;
+            display: inline-block;
+        }
+        .slide-btn:hover { background: #fff; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+
+        /* --- WHITE CORE SECTIONS (THE RESEARCH PLETHORA) --- */
+        .white-section { padding: 150px 10%; max-width: 1400px; margin: 0 auto; }
+
+        .section-header { text-align: center; margin-bottom: 120px; }
+        .section-tag { color: var(--royal-blue); font-family: 'JetBrains Mono'; font-weight: 800; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 30px; display: block; }
+        .section-header h2 { font-size: 4.5rem; line-height: 1; letter-spacing: -3px; }
+
+        .detail-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            margin-bottom: 180px;
+            align-items: center;
+        }
+
+        .detail-text h3 { font-size: 3rem; margin-bottom: 35px; color: var(--navy-void); line-height: 1.1; }
+        .detail-text p { font-size: 1.25rem; line-height: 1.9; color: var(--text-light); margin-bottom: 35px; }
+
+        .feature-list { list-style: none; }
+        .feature-list li {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+        }
+        .feature-list li i { color: var(--royal-blue); font-size: 1.5rem; margin-top: 5px; }
+        .feature-list li strong { font-size: 1.2rem; color: var(--navy-void); display: block; margin-bottom: 5px; }
+
+        /* --- THE SOVEREIGN HIVE (DRONE TAXONOMY) --- */
+        .hive-section {
+            background: #f1f5f9;
+            padding: 150px 10%;
+        }
+
+        .hive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .drone-card {
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            transition: 0.4s;
+            position: relative;
+        }
+        .drone-card:hover { transform: translateY(-15px); border-color: var(--royal-blue); box-shadow: 0 30px 60px rgba(15,23,42,0.1); }
+        .drone-card i { font-size: 3.5rem; color: var(--royal-blue); margin-bottom: 30px; display: block; }
+        .drone-card h4 { font-size: 1.8rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .drone-card .tag { position: absolute; top: 30px; right: 40px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--royal-blue); opacity: 0.5; }
+
+        /* --- MARITIME & DEFENSE (NAVY SECTION) --- */
+        .dark-section {
+            background: var(--navy-void);
+            color: #fff;
+            padding: 150px 10%;
+            position: relative;
+        }
+        .dark-section .section-tag { color: var(--cyan-glow); }
+        .dark-section h2 { color: #fff; }
+        .dark-section p { color: rgba(255,255,255,0.6); }
+
+        /* --- CTA STRIP --- */
+        .fantasy-strip {
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.7)), url('4.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 200px 10%;
+            text-align: center;
+            color: #fff;
+        }
+        .fantasy-strip h2 { font-size: 6rem; text-transform: uppercase; margin-bottom: 40px; letter-spacing: -3px; }
+        .fantasy-strip p { font-size: 1.8rem; max-width: 900px; margin: 0 auto 60px; opacity: 0.9; font-weight: 300; }
+
+        /* --- IP MANIFEST GRID --- */
+        .manifest-zone { padding: 120px 10%; background: #f8fafc; text-align: center; }
+        .manifest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        }
+        .manifest-card {
+            background: #fff;
+            padding: 45px;
+            border: 1px solid var(--border-light);
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+        .manifest-card:hover { transform: scale(1.05); border-color: var(--royal-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .manifest-card i { font-size: 2.5rem; color: var(--royal-blue); margin-bottom: 25px; display: block; }
+
+        /* --- MASTER FOOTER --- */
+        footer {
+            background: var(--navy-void);
+            padding: 150px 10% 80px;
+            color: #fff;
+            border-top: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 100px;
+            padding-bottom: 120px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-col h5 { color: var(--cyan-glow); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; font-size: 1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 18px; }
+        .footer-col ul li a { text-decoration: none; color: #fff; opacity: 0.6; transition: 0.3s; font-size: 1rem; }
+        .footer-col ul li a:hover { opacity: 1; color: var(--cyan-glow); padding-left: 10px; }
+
+        .legal-bar {
+            padding-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            opacity: 0.4;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- REAL-TIME HUD TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>● REALAIID STATUS: SYNCED [HANDSHAKE_STABLE]</span>
+            <span>● DOME FIRMAMENT: SEALED [PRESSURE: 1.0 ATM]</span>
+            <span>● SODR CORE: 4.2°C (THERMAL MASS COOLING OPTIMAL)</span>
+            <span>● SOVEREIGN RESERVES: $25,420,000,000.00 USD</span>
+            <span>● AI SUPREME RULER: BERTHED AT ROYAL NORTH PIER</span>
+            <span>● ARACHNE MAINTENANCE CYCLE: DISTRICT_PRISM_SUB [ACTIVE]</span>
+            <span>● WAVE ENERGY YIELD: 1.2GW [PEAK_SURGE]</span>
+        </div>
+    </div>
+
+    <!-- MASTER HEADER -->
+    <nav>
+        <div class="logo-group">
+            <h2>AI ISLAND <span>X</span> REALAIID</h2>
+        </div>
+        <div class="nav-links">
+            <a href="#vision">The Vision</a>
+            <a href="#districts">The Habitat</a>
+            <a href="#hive">The Hive</a>
+            <a href="#maritime">The Fleet</a>
+            <a href="sign_in.html">Access</a>
+            <button class="realaiid-btn" onclick="location.href='sign_in.html'">HANDSHAKE LOGIN</button>
+        </div>
+    </nav>
+
+    <!-- IMMERSIVE CAROUSEL -->
+    <section class="hero-carousel">
+        <div class="carousel-slide active">
+            <img src="1.jpeg" alt="Aerial Vision">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <p>Behold the Zenith of Sovereignty</p>
+                    <h1>Beyond the<br><span>Horizon.</span></h1>
+                    <a href="investor_relations.html" class="slide-btn">The Executive Brief</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-slide">
+            <img src="2.jpeg" alt="AI Supreme Ruler">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <p>The Flagship of the AI Fleet</p>
+                    <h1>AI Supreme<br><span>Ruler.</span></h1>
+                    <a href="legal_portal.html" class="slide-btn">Vessel Registry</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-slide">
+            <img src="3.jpeg" alt="Undersea Data Ring">
+            <div class="slide-overlay">
+                <div class="slide-content">
+                    <p>Intelligence Cooled by the Abyss</p>
+                    <h1>The Deep<br><span>Compute.</span></h1>
+                    <a href="sodr_compute.html" class="slide-btn">SODR Framework</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE WHITE MASTER SECTION (THE RESEARCH PLETHORA) -->
+    <section class="white-section" id="vision">
+        <div class="section-header">
+            <span class="section-tag">Civilization 2.0</span>
+            <h2>Recoding the <span>Human Purpose</span></h2>
+        </div>
+
+        <div class="detail-block">
+            <div class="detail-text">
+                <h3>The <span>Sentient Resort</span> Fantasy</h3>
+                <p>
+                    AI Island is not merely a vacation destination; it is a life-optimization state. Through the omnipresent <strong>RealAIID Handshake</strong>, your surroundings act as a sentient extension of your will. Every interaction is designed to maximize neural clarity and biological performance.
+                </p>
+                <ul class="feature-list">
+                    <li>
+                        <i class="fa-solid fa-cloud-sun"></i>
+                        <div>
+                            <strong>Atmospheric Hacking</strong>
+                            <p>Inside the Dome Firmament, legacy weather is irrelevant. Residents can personalize their suite and district skies to simulate any climate on Earth—from a Kyoto mist to a Saharan sunset.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-dna"></i>
+                        <div>
+                            <strong>Biological Sovereignty</strong>
+                            <p>Utilizing real-time nutrient titration and DNA-optimized dining, our bio-sync protocols ensure your body is maintained at peak performance while you sleep.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div style="background: var(--off-white); padding: 60px; border-radius: 8px;">
+                <p style="color: var(--royal-blue); font-weight: 800; font-size: 2.2rem; margin-bottom: 30px; line-height: 1;">"Sovereignty isn't a Location. It's a Handshake."</p>
+                <p style="font-style: italic; color: var(--text-light); line-height: 1.8;">
+                    Imagine waking up to your favorite roast of coffee being poured 5 minutes before you arrive at the cafe because the island's predictive swarm calculated your path from the Kinetic Forest. The technology doesn't just assist you; it anticipates you.
+                </p>
+            </div>
+        </div>
+
+        <!-- DISTRICTS QUICK VIEW -->
+        <div class="section-header" id="districts">
+            <span class="section-tag">The Urban Blueprint</span>
+            <h2>The Five <span>Sovereign Districts</span></h2>
+        </div>
+        <div class="hive-grid" style="margin-bottom: 150px;">
+            <div class="drone-card">
+                <i class="fa-solid fa-gem"></i>
+                <h4>Prism District</h4>
+                <p>High-density vertical living with carbon-reinforced spires and private vertiports for every residence.</p>
+                <a href="prism_district.html" style="color:var(--royal-blue); text-decoration:none; font-weight:700; margin-top:20px; display:block;">ENTER DISTRICT</a>
+            </div>
+            <div class="drone-card">
+                <i class="fa-solid fa-water"></i>
+                <h4>Helix Waterfront</h4>
+                <p>Zero-motion floating villas utilizing sub-surface tidal stabilizers for a deep connection to the ocean.</p>
+                <a href="helix_waterfront.html" style="color:var(--royal-blue); text-decoration:none; font-weight:700; margin-top:20px; display:block;">ENTER DISTRICT</a>
+            </div>
+            <div class="drone-card">
+                <i class="fa-solid fa-brain"></i>
+                <h4>Empathy Zone</h4>
+                <p>The social heart of the island where sentiment-mimic architecture adjusts ambient light and scent to crowd mood.</p>
+                <a href="empathy_zone.html" style="color:var(--royal-blue); text-decoration:none; font-weight:700; margin-top:20px; display:block;">ENTER DISTRICT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE SOVEREIGN HIVE (THE MACHINE FORCE) -->
+    <section class="hive-section" id="hive">
+        <div class="section-header">
+            <span class="section-tag">The Autonomous Workforce</span>
+            <h2>The <span>Hive</span> Hierarchy</h2>
+            <p style="max-width: 800px; margin: 40px auto 0; font-size: 1.2rem; color: var(--text-light);">
+                AI Island is a self-healing organism. Eight specialized drone classes manage everything from high-altitude window transparency to the physical soldering of deep-sea server capsules.
+            </p>
+        </div>
+
+        <div class="hive-grid">
+            <div class="drone-card">
+                <div class="tag">01 / AERO</div>
+                <i class="fa-solid fa-helicopter"></i>
+                <h4>Pegasus Class</h4>
+                <p>Human-scale point-to-point transit. Silent multi-rotor pods that dock directly at private balconies.</p>
+            </div>
+            <div class="drone-card">
+                <div class="tag">02 / SURFACE</div>
+                <i class="fa-solid fa-car-side"></i>
+                <h4>Centaur Class</h4>
+                <p>Autonomous luxury ground vehicles with zero manual controls. Fluid surface travel across the labyrinth.</p>
+            </div>
+            <div class="drone-card">
+                <div class="tag">03 / MAINTENANCE</div>
+                <i class="fa-solid fa-spider"></i>
+                <h4>Arachne Class</h4>
+                <p>Amphibious spider bots. Scaling spires to clean solar-skins and diving 200m to repair the SODR ring.</p>
+            </div>
+            <div class="drone-card">
+                <div class="tag">04 / DEFENSE</div>
+                <i class="fa-solid fa-shield-cat"></i>
+                <h4>Vanguard Class</h4>
+                <p>Raptor-profile security sentinels patrolling international waters with 100-mile situational awareness.</p>
+            </div>
+            <div class="drone-card">
+                <div class="tag">05 / HOSPITALITY</div>
+                <i class="fa-solid fa-robot"></i>
+                <h4>Hermes Class</h4>
+                <p>Bipedal service units that recognize RealAIID signatures to deliver personalized bio-sync nutrients.</p>
+            </div>
+            <div class="drone-card">
+                <div class="tag">06 / ATMOS</div>
+                <i class="fa-solid fa-dragonfly"></i>
+                <h4>Iris Class</h4>
+                <p>Insect-sized micro-swarms that monitor Dome air quality and detect trace chemical leaks in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARITIME SOVEREIGNTY (DARK THEME) -->
+    <section class="dark-section" id="maritime">
+        <div class="detail-block" style="margin-bottom: 0;">
+            <div class="detail-text">
+                <span class="section-tag">Flagship Operations</span>
+                <h2 style="color:#fff;">The <span>AI Supreme Ruler</span></h2>
+                <p>
+                    A mobile sovereign node powered by twin Micro-Fusion SMRs. The <strong>AI Supreme Ruler</strong> is more than a vessel; it is a $4.5B autonomous habitat that mirrors the island's SODR compute logic while in transit across global waters.
+                </p>
+                <ul class="feature-list" style="color:#fff; border-color: rgba(255,255,255,0.1);">
+                    <li>
+                        <i class="fa-solid fa-bolt" style="color:var(--cyan-glow);"></i>
+                        <div style="color:#fff;">
+                            <strong style="color:#fff;">Silent MHD Propulsion</strong>
+                            <p>Magnetohydrodynamic drives ensure zero-vibration, near-silent movement for absolute luxury and stealth.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-shield" style="color:var(--cyan-glow);"></i>
+                        <div style="color:#fff;">
+                            <strong style="color:#fff;">Retractable Mini-Firmament</strong>
+                            <p>Segmented glass shields seal the top decks during high-speed transits or localized storm events.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="drone-card" style="background: var(--navy-prime); border-color: var(--cyan-glow); color: #fff;">
+                <h4 style="color: var(--cyan-glow);">Investor Benefit</h4>
+                <p style="margin-top:20px; font-size: 1.1rem; line-height: 1.8; opacity: 0.8;">
+                    The "Supreme Ruler" class vessel serves as a floating high-compute sandbox. Companies testing AGI or robotics can rent entire decks of the ship for isolated, regulated-free testing in international waters before deploying to the island proper.
+                </p>
+                <div style="margin-top: 30px; font-family:'JetBrains Mono'; font-size: 0.8rem; color: var(--cyan-glow);">VESSEL_STATUS: ROYAL_NORTH_BERTH</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FANTASY IMPACT -->
+    <section class="fantasy-strip">
+        <h2>Wake Up in <span>Tomorrow.</span></h2>
+        <p>A sovereign domain where every breath is filtered, every transaction is secure, and every sunset is personalized by the AI.</p>
+        <button class="slide-btn" style="background:#fff; color:var(--royal-blue);" onclick="location.href='sign_in.html'">Initiate Handshake</button>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section class="manifest-zone" id="manifests">
+        <span class="section-tag">Intellectual Property</span>
+        <h2>Download the <span>Sovereign Intelligence</span></h2>
+        <div class="manifest-grid">
+            <a href="ai-island-prospectus.pdf" target="_blank" class="manifest-card">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h4>Executive Prospectus</h4>
+                <p>Architecture, ROI, and Phase IV Strategy</p>
+            </a>
+            <a href="residency-manifest.pdf" target="_blank" class="manifest-card">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h4>Residency Portfolio</h4>
+                <p>Suite Specs, Vertiports, and District Pricing</p>
+            </a>
+            <a href="energy-autonomy.pdf" target="_blank" class="manifest-card">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h4>Energy Charter</h4>
+                <p>Kinetic Wave Mesh and Fusion Grid Logic</p>
+            </a>
+            <a href="financial-charter.pdf" target="_blank" class="manifest-card">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h4>Financial FSZ</h4>
+                <p>Banking Autonomy and Ledger Mesh Fees</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- MASTER FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo-group">
+                    <h2 style="font-size: 1.1rem;">AI ISLAND <span>X</span> REALAIID</h2>
+                </div>
+                <p style="margin-top: 40px; line-height: 1.8; opacity: 0.6;">
+                    Solomon Kin LLC is the lead architect of Sovereign Civilizations. We integrate biometric security with maritime physics to create the world's most resilient habitation prototypes. 
+                </p>
+            </div>
+            <div class="footer-col">
+                <h5>Districts</h5>
+                <ul>
+                    <li><a href="prism_district.html">The Prism District</a></li>
+                    <li><a href="helix_waterfront.html">The Helix Waterfront</a></li>
+                    <li><a href="empathy_zone.html">The Empathy Zone</a></li>
+                    <li><a href="abyss_gallery.html">Abyss Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Sovereignty</h5>
+                <ul>
+                    <li><a href="realaiid_protocol.html">RealAIID Protocol</a></li>
+                    <li><a href="sodr_compute.html">SODR Compute Ring</a></li>
+                    <li><a href="governance_hub.html">Sovereign Governance</a></li>
+                    <li><a href="fsz_banking.html">FSZ Banking</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <ul>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="investor_relations.html">Investor Relations</a></li>
+                    <li><a href="legal_portal.html">Legal Portal</a></li>
+                    <li><a href="direct_uplink.html">Direct Uplink</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="legal-bar">
+            <div>© 2026 SOLOMON KIN LLC. ALL RIGHTS RESERVED.</div>
+            <div>STATUS: ENCRYPTED_UPLINK_STABLE</div>
+            <div>PRIVACY // SECURITY // SOVEREIGNTY</div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        setInterval(nextSlide, 8000);
+    </script>
+</body>
+</html>

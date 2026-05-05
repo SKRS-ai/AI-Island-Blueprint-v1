@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Governance | The Code is Law | AI Island</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --pure-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(56, 189, 248, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--navy-void); font-family: 'Urbanist', sans-serif; color: #fff; overflow-x: hidden; }
+
+        /* --- HEADER --- */
+        nav {
+            background: linear-gradient(to right, var(--navy-void), var(--navy-prime));
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo h2 { letter-spacing: 5px; font-weight: 800; text-transform: uppercase; font-size: 1.2rem; }
+        .logo span { color: var(--cyan-glow); }
+
+        /* --- HERO --- */
+        .gov-hero {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, var(--navy-prime) 0%, var(--navy-void) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        .gov-hero h1 { font-size: clamp(3rem, 8vw, 5rem); text-transform: uppercase; letter-spacing: -2px; line-height: 0.9; }
+        .gov-hero p { font-family: 'JetBrains Mono'; color: var(--cyan-glow); font-size: 1.1rem; letter-spacing: 4px; margin-top: 20px; }
+
+        /* --- CORE PILLARS --- */
+        .section-wrap { padding: 100px 10%; max-width: 1400px; margin: 0 auto; }
+        
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .pillar-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 4px;
+            transition: 0.4s;
+        }
+        .pillar-card:hover { border-color: var(--cyan-glow); box-shadow: 0 0 30px rgba(56, 189, 248, 0.1); transform: translateY(-5px); }
+        .pillar-card i { font-size: 2.5rem; color: var(--cyan-glow); margin-bottom: 25px; display: block; }
+        .pillar-card h3 { font-size: 1.6rem; margin-bottom: 15px; text-transform: uppercase; }
+        .pillar-card p { opacity: 0.7; line-height: 1.7; }
+
+        /* --- DAO INTERFACE PREVIEW --- */
+        .dao-interface {
+            background: #fff;
+            color: var(--navy-void);
+            padding: 80px 10%;
+            border-radius: 4px;
+            margin-bottom: 100px;
+        }
+        .dao-header { text-align: center; margin-bottom: 50px; }
+        .dao-header h2 { font-size: 3rem; text-transform: uppercase; letter-spacing: -1px; }
+        
+        .vote-card {
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .vote-info h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .vote-info span { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--royal-blue); text-transform: uppercase; }
+        
+        .btn-vote {
+            background: var(--navy-void);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 80px 10% 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><h2>AI ISLAND <span>/</span> GOVERNANCE</h2></div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow);">LEDGER_STATUS: IMMUTABLE</div>
+    </nav>
+
+    <section class="gov-hero">
+        <h1>THE SOVEREIGN<br><span>CONSTITUTION</span></h1>
+        <p>ALGORITHMIC JUSTICE // REALAIID CONSENSUS</p>
+    </section>
+
+    <div class="section-wrap">
+        
+        <div class="pillar-grid">
+            <div class="pillar-card">
+                <i class="fa-solid fa-gavel"></i>
+                <h3>Smart Arbitration</h3>
+                <p>Civil disputes are resolved in milliseconds via pre-coded logic triggers. No human bias, no backlogs—only immutable code-based outcomes.</p>
+            </div>
+            <div class="pillar-card">
+                <i class="fa-solid fa-users-rectangle"></i>
+                <h3>RealAIID Voting</h3>
+                <p>Consensus is reached through biometric proof-of-personhood. Every resident has one non-transferable voice in the island's future.</p>
+            </div>
+            <div class="pillar-card">
+                <i class="fa-solid fa-file-shield"></i>
+                <h3>Maritime Charter</h3>
+                <p>Operating under the Solomon Kin LLC Private Charter, the island maintains total jurisdictional autonomy from legacy nation-states.</p>
+            </div>
+        </div>
+
+        <section class="dao-interface">
+            <div class="dao-header">
+                <span>ACTIVE PROPOSALS</span>
+                <h2>Sovereign <span>DAO</span></h2>
+            </div>
+
+            <div class="vote-card">
+                <div class="vote-info">
+                    <h4>Adjust Dome Transparency [District 4]</h4>
+                    <span>Status: Voting Open // Ends in 14h</span>
+                </div>
+                <button class="btn-vote">Cast Handshake</button>
+            </div>
+
+            <div class="vote-card">
+                <div class="vote-info">
+                    <h4>Allocate SODR Compute to Aura Research</h4>
+                    <span>Status: Quorum Reached</span>
+                </div>
+                <button class="btn-vote" style="background:#10b981;">Passed</button>
+            </div>
+
+            <div class="vote-card">
+                <div class="vote-info">
+                    <h4>Deployment of 1,000 New Arachne Drones</h4>
+                    <span>Status: Security Review</span>
+                </div>
+                <button class="btn-vote" disabled style="opacity:0.5;">Pending</button>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        © 2026 SOLOMON KIN LLC // ALL RIGHTS RESERVED<br>
+        GOVERNANCE NODE: NORTH_SPIRE_PRIMARY
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Abyss Gallery | Sovereign Culture | AI Island</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --navy-void: #020617; --cyan-glow: #38bdf8; --glass: rgba(255, 255, 255, 0.03); --border: rgba(56, 189, 248, 0.15); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--navy-void); font-family: 'Urbanist', sans-serif; color: #fff; }
+        nav { height: 90px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; border-bottom: 1px solid var(--border); }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(2,6,23,0.9), rgba(2,6,23,0.9)), url('http://googleusercontent.com/image_generation_content/124'); background-size:cover; }
+        .hero h1 { font-size: 5rem; text-transform: uppercase; }
+        .gallery-grid { padding: 50px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .art-card { aspect-ratio: 1; border: 1px solid var(--border); background: var(--glass); }
+    </style>
+</head>
+<body>
+<nav><div class="logo"><h2>AI ISLAND <span>/</span> ABYSS</h2></div></nav>
+<section class="hero"><h1>THE ABYSS <span>GALLERY</span></h1><p style="font-family:'JetBrains Mono'; color:var(--cyan-glow); letter-spacing:5px;">200M BELOW THE SURFACE</p></section>
+<div class="gallery-grid">
+    <div class="art-card"></div><div class="art-card"></div><div class="art-card"></div><div class="art-card"></div>
+</div>
+</body>
+</html>

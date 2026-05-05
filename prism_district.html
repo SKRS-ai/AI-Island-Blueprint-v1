@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Prism District | Vertical Sovereignty | AI Island</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --pure-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(56, 189, 248, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--navy-void); font-family: 'Urbanist', sans-serif; color: #fff; overflow-x: hidden; }
+        
+        nav {
+            background: linear-gradient(to right, var(--navy-void), var(--navy-prime));
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo h2 { letter-spacing: 5px; font-weight: 800; text-transform: uppercase; font-size: 1.2rem; }
+        .logo span { color: var(--cyan-glow); }
+
+        .hero-section {
+            height: 70vh;
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.7)), url('http://googleusercontent.com/image_generation_content/125');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+        .hero-section h1 { font-size: 5rem; text-transform: uppercase; letter-spacing: -2px; }
+        .hero-section p { font-family: 'JetBrains Mono'; color: var(--cyan-glow); font-size: 1.2rem; letter-spacing: 5px; margin-top: 20px; }
+
+        .content-wrap { padding: 100px 10%; max-width: 1400px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
+        
+        .feature-card { background: var(--glass); border: 1px solid var(--border); padding: 40px; border-radius: 4px; transition: 0.3s; }
+        .feature-card:hover { border-color: var(--cyan-glow); box-shadow: 0 0 30px rgba(56, 189, 248, 0.1); }
+        .feature-card i { font-size: 2.5rem; color: var(--cyan-glow); margin-bottom: 25px; display: block; }
+        .feature-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
+
+        .cta-bar { background: var(--royal-blue); padding: 60px; text-align: center; border-radius: 4px; margin-top: 50px; }
+        .cta-bar h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 20px; }
+        .btn-handshake { background: #fff; color: var(--navy-void); padding: 18px 40px; border: none; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo"><h2>AI ISLAND <span>/</span> PRISM</h2></div>
+    <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow);">STATUS: VERTICAL_GRID_NOMINAL</div>
+</nav>
+
+<section class="hero-section">
+    <h1>THE PRISM <span>DISTRICT</span></h1>
+    <p>High-Density Executive Living</p>
+</section>
+
+<div class="content-wrap">
+    <div class="grid">
+        <div>
+            <h2 style="font-size: 3rem; margin-bottom: 30px;">Vertical <span>Elegance.</span></h2>
+            <p style="font-size: 1.2rem; opacity: 0.7; line-height: 1.8;">
+                The Prism District is the architectural spine of AI Island. Comprising high-density, carbon-reinforced glass towers, it offers residents a 360-degree panoramic view of the turquoise lagoon and the open ocean.
+            </p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-helicopter"></i>
+            <h3>Integrated Vertiports</h3>
+            <p>Every residential balcony features a magnetic docking ledge for Pegasus-Class flight pods, allowing for point-to-point transit without ever touching the ground.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="feature-card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>Electromagnetic Shielding</h3>
+            <p>Towers are encased in localized firmament layers, protecting residents from solar flares and extreme weather while maintaining perfect cellular and data uplink.</p>
+        </div>
+        <div>
+            <h2 style="font-size: 3rem; margin-bottom: 30px;">The <span>Founder's</span> Hub</h2>
+            <p style="font-size: 1.2rem; opacity: 0.7; line-height: 1.8;">
+                Designed for the digital sovereign, every suite is hardwired into the SODR compute ring, providing petascale processing power directly to your private workspace.
+            </p>
+        </div>
+    </div>
+
+    <section class="cta-bar">
+        <h2>Reserve Your <span>Pinnacle</span></h2>
+        <p style="margin-bottom: 30px; opacity: 0.8;">Phase III Private Residential Inquiries are now open for verified RealAIID holders.</p>
+        <button class="btn-handshake" onclick="location.href='sign_in.html'">Initiate Handshake</button>
+    </section>
+</div>
+
+<footer style="padding: 50px; text-align: center; font-size: 0.8rem; opacity: 0.4; letter-spacing: 2px;">
+    © 2026 SOLOMON KIN LLC // DISTRICT_PRISM_V1
+</footer>
+
+</body>
+</html>

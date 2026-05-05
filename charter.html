@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident’s Charter | Sovereign Governance | AI Island</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --gold-sovereign: #eab308;
+            --pure-white: #ffffff;
+            --border: rgba(56, 189, 248, 0.15);
+            --glass: rgba(255, 255, 255, 0.02);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--navy-void); 
+            font-family: 'Urbanist', sans-serif; 
+            color: #fff; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            width: 320px;
+            background: var(--navy-prime);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .logo-small {
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            color: var(--cyan-glow);
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu { list-style: none; flex-grow: 1; }
+        .nav-menu li { margin-bottom: 25px; }
+        .nav-menu a {
+            text-decoration: none;
+            color: #fff;
+            opacity: 0.5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-menu a:hover, .nav-menu a.active { opacity: 1; color: var(--cyan-glow); }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex-grow: 1;
+            padding: 60px;
+            overflow-y: auto;
+            background: radial-gradient(circle at bottom left, var(--navy-prime), var(--navy-void));
+        }
+
+        .header-section {
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 30px;
+        }
+
+        .header-section h1 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 10px; }
+        .header-section p { font-family: 'JetBrains Mono'; color: var(--cyan-glow); font-size: 0.75rem; letter-spacing: 3px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        /* --- DAO VOTING CARD --- */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .card h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .card h3 i { color: var(--cyan-glow); }
+
+        .proposal-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .proposal-info h4 { font-size: 1rem; margin-bottom: 5px; }
+        .proposal-info span { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--cyan-glow); text-transform: uppercase; }
+
+        .btn-vote {
+            background: transparent;
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            padding: 10px 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-vote:hover { background: var(--cyan-glow); color: var(--navy-void); }
+
+        /* --- SOVEREIGN BONDS & YIELD --- */
+        .bond-stat {
+            margin-bottom: 30px;
+        }
+        .bond-stat label { display: block; font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; margin-bottom: 10px; }
+        .bond-stat .val { font-size: 2rem; font-weight: 800; color: var(--gold-sovereign); }
+
+        .yield-badge {
+            background: rgba(234, 179, 8, 0.1);
+            color: var(--gold-sovereign);
+            padding: 5px 12px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono';
+        }
+
+        /* --- CONSTITUTION TERMINAL --- */
+        .terminal-box {
+            background: #000;
+            padding: 30px;
+            border-left: 3px solid var(--gold-sovereign);
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        /* --- UTILITY OVERLAY --- */
+        .utility-tag {
+            font-size: 0.6rem;
+            background: var(--royal-blue);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo-small">REALAII ISLAND</div>
+        <ul class="nav-menu">
+            <li><a href="portal.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+            <li><a href="charter.html" class="active"><i class="fa-solid fa-file-shield"></i> Sovereign Charter</a></li>
+            <li><a href="ledger.html"><i class="fa-solid fa-wallet"></i> $AII Ledger</a></li>
+            <li><a href="corporate_sandbox.html"><i class="fa-solid fa-microchip"></i> Sandbox B2B</a></li>
+            <li><a href="neptunes_ledger.html"><i class="fa-solid fa-utensils"></i> Neptune's Ledger</a></li>
+        </ul>
+        <div style="margin-top: auto; font-size: 0.6rem; opacity: 0.3; font-family: 'JetBrains Mono';">
+            CHARTER_NODE: NORTH_SPIRE_01<br>
+            CONSENSUS: ALGORITHMIC_ZK<br>
+            PROTOCOL: RealAIID_V1
+        </div>
+    </aside>
+
+    <main>
+        <div class="header-section">
+            <h1>Resident <span>Governance</span></h1>
+            <p>THE CODE IS LAW // REALAIID CONSENSUS ACTIVE</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="left-col">
+                <div class="card">
+                    <h3><i class="fa-solid fa-users-viewfinder"></i> Active Proposals <span class="utility-tag">HANDSHAKE REQ.</span></h3>
+                    
+                    <div class="proposal-item">
+                        <div class="proposal-info">
+                            <h4>Adjust Atmospheric Humidity [District 04]</h4>
+                            <span>ID: PROP_882_ATM // QUORUM: 72% REQ.</span>
+                        </div>
+                        <button class="btn-vote" onclick="castHandshake('ATM_ADJUST')">Cast Handshake</button>
+                    </div>
+
+                    <div class="proposal-item">
+                        <div class="proposal-info">
+                            <h4>Expansion of Submerged SODR Ring (Phase V)</h4>
+                            <span>ID: PROP_901_INFRA // QUORUM: 85% REQ.</span>
+                        </div>
+                        <button class="btn-vote" onclick="castHandshake('INFRA_EXPAND')">Cast Handshake</button>
+                    </div>
+
+                    <div class="proposal-item">
+                        <div class="proposal-info">
+                            <h4>Resident Dividend % Adjustment ($AII)</h4>
+                            <span>ID: PROP_772_FISCAL // QUORUM: 60% REQ.</span>
+                        </div>
+                        <button class="btn-vote" onclick="castHandshake('DIVIDEND_ADJ')">Cast Handshake</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-gavel"></i> Sovereign Constitution</h3>
+                    <div class="terminal-box">
+                        [ARTICLE 01]: Biometric Rights are self-sovereign. No biological hash may be transmitted outside the island's 7G mesh without resident decryption via RealAIID.<br><br>
+                        [ARTICLE 02]: Civil disputes are resolved via smart-contract logic within the Logic Labyrinth. Justice is real-time, immutable, and algorithmic.<br><br>
+                        [ARTICLE 03]: $AII is the official Utility Standard. Each unit is backed by physical compute cycles in the SODR Ring and kinetic energy from the sovereign grid.<br><br>
+                        [ARTICLE 04]: Jurisdictional Autonomy is maintained via the Solomon Kin LLC Private Charter, operating under Maritime Sovereign Law.
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="card" style="border-color: var(--gold-sovereign);">
+                    <h3><i class="fa-solid fa-chart-line"></i> Yield & Bonds</h3>
+                    
+                    <div class="bond-stat">
+                        <label>Sovereign Bond Value</label>
+                        <div class="val">4,250.00 <span style="font-size: 1rem; opacity: 0.6;">$AII</span></div>
+                    </div>
+
+                    <div class="bond-stat">
+                        <label>Annual ROI Share</label>
+                        <div class="val" style="color: var(--cyan-glow);">12.4% <span class="yield-badge">+2.1% PREM</span></div>
+                    </div>
+
+                    <div style="background: rgba(56, 189, 248, 0.05); padding: 20px; border-radius: 4px; border-left: 2px solid var(--cyan-glow);">
+                        <h6 style="font-family: 'JetBrains Mono'; font-size: 0.6rem; color: var(--cyan-glow); margin-bottom: 5px;">SOURCE: SODR_REVENUE</h6>
+                        <p style="font-size: 0.75rem; opacity: 0.7; line-height: 1.4;">
+                            Yield is generated from B2B compute leasing fees paid by NVIDIA and OpenAI. Distributed monthly via the Sovereign Ledger.
+                        </p>
+                    </div>
+                    
+                    <button style="margin-top: 30px; width: 100%; background: var(--gold-sovereign); color: #000; border: none; padding: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; font-size: 0.7rem;">Staking Dashboard</button>
+                </div>
+
+                <div class="card" style="border-color: var(--cyan-glow);">
+                    <h4 style="font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--cyan-glow); margin-bottom: 15px;">MEMBER CLEARANCE</h4>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fa-solid fa-fingerprint" style="font-size: 2rem; color: var(--cyan-glow);"></i>
+                        <div>
+                            <div style="font-weight: 800; font-size: 0.9rem;">EXECUTIVE_PINNACLE</div>
+                            <div style="font-size: 0.7rem; opacity: 0.5;">RealAIID: VERIFIED</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="font-family: 'JetBrains Mono'; font-size: 0.65rem; opacity: 0.5; margin-bottom: 15px;">COMPUTE QUOTA</h4>
+                    <div style="font-size: 1.5rem; font-weight: 800;">750 <span style="font-size: 0.8rem; opacity: 0.6;">HOURS</span></div>
+                    <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 10px;">Reserved petascale compute credits remaining for this cycle.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // FAIL-SAFE INITIALIZATION
+        const firebaseConfig = JSON.parse(window.localStorage.getItem('__firebase_config') || '{}');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) window.location.href = 'sign_in.html';
+        });
+
+        window.castHandshake = async (propId) => {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "AUTHENTICATING BIOMETRICS...";
+            btn.style.opacity = "0.5";
+            btn.disabled = true;
+            
+            // Simulating RealAIID Auth Ping
+            await new Promise(r => setTimeout(r, 2000));
+            
+            btn.innerText = "CONSENSUS RECORDED";
+            btn.style.background = "#10b981";
+            btn.style.color = "#fff";
+            btn.style.borderColor = "#10b981";
+            btn.style.opacity = "1";
+        }
+    </script>
+</body>
+</html>

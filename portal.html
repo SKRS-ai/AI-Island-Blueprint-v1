@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ISLAND | Resident Command | Sovereign Node</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --pure-white: #ffffff;
+            --border: rgba(56, 189, 248, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--navy-void); 
+            font-family: 'Urbanist', sans-serif; 
+            color: #fff; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- HUD TICKER --- */
+        .ticker-wrap {
+            background: var(--royal-blue);
+            color: #fff;
+            padding: 8px 0;
+            overflow: hidden;
+            font-family: 'JetBrains Mono';
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 3001;
+        }
+
+        .ticker {
+            display: flex;
+            gap: 60px;
+            animation: ticker 45s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- SIDEBAR NAV --- */
+        aside {
+            width: 300px;
+            background: var(--navy-prime);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            padding-top: 60px; /* Offset for ticker */
+        }
+
+        .logo-small {
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            color: var(--cyan-glow);
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu { list-style: none; flex-grow: 1; }
+        .nav-menu li { margin-bottom: 30px; }
+        .nav-menu a {
+            text-decoration: none;
+            color: #fff;
+            opacity: 0.5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-menu a:hover, .nav-menu a.active { opacity: 1; color: var(--cyan-glow); }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex-grow: 1;
+            padding: 80px 60px 60px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .header-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 80px;
+        }
+
+        .profile-snip h1 { font-size: 2.5rem; letter-spacing: -1px; }
+        .profile-snip p { font-family: 'JetBrains Mono'; color: var(--cyan-glow); font-size: 0.75rem; margin-top: 10px; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 4px;
+        }
+        .stat-card h4 { font-family: 'JetBrains Mono'; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; margin-bottom: 15px; }
+        .stat-card .value { font-size: 2.2rem; font-weight: 800; color: var(--pure-white); }
+        .stat-card .sub { font-size: 0.8rem; color: var(--cyan-glow); margin-top: 5px; }
+
+        /* --- DOME STATUS VISUALIZER --- */
+        .dome-visualizer {
+            background: linear-gradient(to right, rgba(56, 189, 248, 0.05), transparent);
+            border: 1px solid var(--border);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dome-visualizer h2 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; }
+        .dome-visualizer p { max-width: 600px; opacity: 0.6; line-height: 1.8; }
+
+        .scanline {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--cyan-glow);
+            opacity: 0.3;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan { from { top: 0; } to { top: 100%; } }
+
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--navy-void);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'JetBrains Mono';
+            color: var(--cyan-glow);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- AUTH LOADING -->
+    <div id="loader" class="loading-screen">
+        <i class="fa-solid fa-fingerprint fa-beat" style="font-size: 3rem; margin-bottom: 20px;"></i>
+        <div style="letter-spacing: 5px; text-transform: uppercase;">DECRYPTING SOVEREIGN VAULT...</div>
+    </div>
+
+    <!-- HUD TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>● REALAIID STATUS: SYNCED [HANDSHAKE_STABLE]</span>
+            <span>● DOME FIRMAMENT: SEALED [PRESSURE: 1.0 ATM]</span>
+            <span>● SODR CORE: 4.2°C (THERMAL MASS COOLING OPTIMAL)</span>
+            <span>● SOVEREIGN RESERVES: $25,420,000,000.00 USD</span>
+            <span>● RESIDENT NODE: ACTIVE [ENCRYPTED]</span>
+        </div>
+    </div>
+
+    <aside>
+        <div class="logo-small">REALAII ISLAND</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fa-solid fa-house-chimney"></i> My Residence</a></li>
+            <li><a href="#"><i class="fa-solid fa-wallet"></i> $AII Ledger</a></li>
+            <li><a href="#"><i class="fa-solid fa-drone"></i> Transport</a></li>
+            <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Privacy Controls</a></li>
+        </ul>
+        <div style="font-size: 0.6rem; opacity: 0.3; font-family: 'JetBrains Mono'; line-height: 1.6;">
+            REALAIID BRIDGE: ACTIVE<br>
+            NODE: SK_LLC_MAIN<br>
+            CLEARANCE: RESIDENT_LEVEL_01
+        </div>
+    </aside>
+
+    <main>
+        <div class="header-hud">
+            <div class="profile-snip">
+                <h1 id="user-greeting">Welcome back, Resident</h1>
+                <p id="user-id">REALAiiD_TOKEN: INITIALIZING...</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow);">4.2°C // 1.0 ATM</div>
+                <div style="font-size: 0.8rem; margin-top: 5px;">PRISM DISTRICT // TOWER 04</div>
+            </div>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <h4>Sovereign Reserves</h4>
+                <div class="value">0.00 <span style="font-size: 1.2rem;">$AII</span></div>
+                <div class="sub">Vesting: 25,000.00</div>
+            </div>
+            <div class="stat-card">
+                <h4>Biometric Sync</h4>
+                <div class="value">99.8%</div>
+                <div class="sub">Standard: RealAIID Pulse</div>
+            </div>
+            <div class="stat-card">
+                <h4>Dome Visibility</h4>
+                <div class="value">TRANSPARENT</div>
+                <div class="sub">Sky Config: Atlantic Dawn</div>
+            </div>
+        </div>
+
+        <div class="dome-visualizer">
+            <div class="scanline"></div>
+            <h2>Atmospheric Hacking</h2>
+            <p>Your local district sky is currently synced to the global island firmament. Use your RealAIID token to personalize localized weather simulation, chemical filtration, and nutrient mist levels.</p>
+            <button style="margin-top: 30px; background: transparent; border: 1px solid var(--cyan-glow); color: var(--cyan-glow); padding: 12px 25px; cursor: pointer; text-transform: uppercase; font-weight: 800; font-size: 0.7rem; letter-spacing: 2px;">Modify Local Sky</button>
+        </div>
+    </main>
+
+    <!-- FIREBASE & API BRIDGE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // FAIL-SAFE INITIALIZATION
+        let db, auth, appId;
+        const loader = document.getElementById('loader');
+
+        try {
+            // Environment Check
+            const firebaseConfig = JSON.parse(__firebase_config);
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'real-ai-island';
+        } catch (e) {
+            console.warn("Backend Sync Interrupted. Running in Simulation View.");
+            setTimeout(() => loader.style.display = 'none', 1500);
+        }
+
+        if (auth) {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    document.getElementById('user-id').innerText = `REALAiiD_TOKEN: ${user.uid.substring(0, 16).toUpperCase()}`;
+                    
+                    // Future RealAIID API Handshake Hook
+                    // verifyGlobalIdentity(user.uid);
+
+                    setTimeout(() => loader.style.display = 'none', 1000);
+                } else {
+                    // Unauthorized access detected, redirect to Entry
+                    window.location.href = 'sign_in.html';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

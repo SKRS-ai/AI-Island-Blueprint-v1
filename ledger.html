@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ISLAND | $AII Ledger | Sovereign Finance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --royal-blue: #1d4ed8;
+            --pure-white: #ffffff;
+            --border: rgba(56, 189, 248, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--navy-void); 
+            font-family: 'Urbanist', sans-serif; 
+            color: #fff; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR NAV --- */
+        aside {
+            width: 300px;
+            background: var(--navy-prime);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .logo-small {
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            color: var(--cyan-glow);
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu { list-style: none; flex-grow: 1; }
+        .nav-menu li { margin-bottom: 30px; }
+        .nav-menu a {
+            text-decoration: none;
+            color: #fff;
+            opacity: 0.5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-menu a:hover, .nav-menu a.active { opacity: 1; color: var(--cyan-glow); }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex-grow: 1;
+            padding: 60px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .balance-hero {
+            background: linear-gradient(135deg, var(--royal-blue), var(--navy-prime));
+            padding: 60px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-hero h4 { font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .balance-hero .main-amt { font-size: 4rem; font-weight: 800; }
+        .balance-hero .fiat-equiv { font-family: 'JetBrains Mono'; font-size: 1rem; opacity: 0.5; margin-top: 5px; }
+
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        /* --- TRANSACTION LIST --- */
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 30px;
+        }
+
+        .card h3 { font-size: 1.2rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+
+        .tx-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tx-info h5 { font-size: 0.95rem; margin-bottom: 4px; }
+        .tx-info p { font-family: 'JetBrains Mono'; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; }
+
+        .tx-amt { font-family: 'JetBrains Mono'; font-weight: 700; font-size: 1rem; }
+        .tx-amt.neg { color: #f87171; }
+        .tx-amt.pos { color: #4ade80; }
+
+        /* --- ASSET BREAKDOWN --- */
+        .asset-row {
+            margin-bottom: 25px;
+        }
+        .asset-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 10px; }
+        .progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--cyan-glow); }
+
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo-small">REALAII ISLAND</div>
+        <ul class="nav-menu">
+            <li><a href="portal.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fa-solid fa-house-chimney"></i> My Residence</a></li>
+            <li><a href="ledger.html" class="active"><i class="fa-solid fa-wallet"></i> $AII Ledger</a></li>
+            <li><a href="#"><i class="fa-solid fa-drone"></i> Transport</a></li>
+            <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Privacy Controls</a></li>
+        </ul>
+        <div style="font-size: 0.6rem; opacity: 0.3; font-family: 'JetBrains Mono';">
+            LEDGER STATUS: VERIFIED<br>
+            NETWORK: SOVEREIGN_MESH
+        </div>
+    </aside>
+
+    <main>
+        <div class="balance-hero">
+            <h4>Total Sovereign Value</h4>
+            <div class="main-amt">25,420.88 <span style="font-size: 1.5rem; opacity: 0.7;">$AII</span></div>
+            <div class="fiat-equiv">≈ $25,420,000.00 USD</div>
+        </div>
+
+        <div class="ledger-grid">
+            <div class="card">
+                <h3>Recent Handshakes</h3>
+                
+                <div class="tx-row">
+                    <div class="tx-info">
+                        <h5>Neptune's Ledger | Private Dining</h5>
+                        <p>ID: TX_8829_GILL_01 // BIOMETRIC_AUTH</p>
+                    </div>
+                    <div class="tx-amt neg">- 1,250.00</div>
+                </div>
+
+                <div class="tx-row">
+                    <div class="tx-info">
+                        <h5>Sovereign Yield Distribution</h5>
+                        <p>ID: SYD_MAY_2026 // SODR_REVENUE_SHARE</p>
+                    </div>
+                    <div class="tx-amt pos">+ 450.25</div>
+                </div>
+
+                <div class="tx-row">
+                    <div class="tx-info">
+                        <h5>Pegasus Transport | Prism to Zenith</h5>
+                        <p>ID: M2M_DRONE_772 // AUTOMATED_FEE</p>
+                    </div>
+                    <div class="tx-amt neg">- 15.00</div>
+                </div>
+
+                <div class="tx-row">
+                    <div class="tx-info">
+                        <h5>RealAIID Bureau | Handshake Fee Refund</h5>
+                        <p>ID: REF_009_BUREAU // SYSTEM_ADJUST</p>
+                    </div>
+                    <div class="tx-amt pos">+ 1.00</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Asset Allocation</h3>
+                
+                <div class="asset-row">
+                    <div class="asset-label">
+                        <span>Liquid $AII</span>
+                        <span>82%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 82%;"></div></div>
+                </div>
+
+                <div class="asset-row">
+                    <div class="asset-label">
+                        <span>SODR Compute Credits</span>
+                        <span>12%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 12%; background: var(--royal-blue);"></div></div>
+                </div>
+
+                <div class="asset-row">
+                    <div class="asset-label">
+                        <span>Mesh Energy Units</span>
+                        <span>6%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 6%; background: #fff;"></div></div>
+                </div>
+
+                <div style="margin-top: 40px; font-family: 'JetBrains Mono'; font-size: 0.65rem; opacity: 0.4; line-height: 1.6;">
+                    NOTICE: $AII is a utility-backed asset. Liquid balances are redeemable for raw compute power at the SODR PHL-01 Node.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Pulling config from local storage as established in portal.html
+        const firebaseConfig = JSON.parse(window.localStorage.getItem('__firebase_config') || '{}');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'sign_in.html';
+            }
+        });
+    </script>
+</body>
+</html>

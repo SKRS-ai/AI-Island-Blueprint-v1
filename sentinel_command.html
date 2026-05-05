@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Command | Sovereign Defense | AI Island</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy-void: #020617;
+            --navy-prime: #0f172a;
+            --cyan-glow: #38bdf8;
+            --emergency-red: #ef4444;
+            --warning-amber: #f59e0b;
+            --pure-white: #ffffff;
+            --border: rgba(56, 189, 248, 0.15);
+            --glass: rgba(255, 255, 255, 0.02);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--navy-void); 
+            font-family: 'Urbanist', sans-serif; 
+            color: #fff; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- TACTICAL SIDEBAR --- */
+        aside {
+            width: 350px;
+            background: #000;
+            border-right: 2px solid var(--emergency-red);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .cmd-brand {
+            font-family: 'JetBrains Mono';
+            font-size: 0.9rem;
+            color: var(--emergency-red);
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .swarm-status {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .swarm-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+
+        .swarm-item h5 { font-family: 'JetBrains Mono'; font-size: 0.65rem; opacity: 0.6; text-transform: uppercase; margin-bottom: 8px; }
+        .swarm-item .stats { display: flex; justify-content: space-between; align-items: center; }
+        .swarm-item .count { font-weight: 800; font-size: 1.1rem; }
+        .swarm-item .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px #10b981; }
+
+        /* --- OVERRIDE BUTTONS --- */
+        .override-panel {
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+
+        .btn-emergency {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--emergency-red);
+            color: var(--emergency-red);
+            padding: 15px;
+            text-transform: uppercase;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-emergency:hover { background: var(--emergency-red); color: #000; }
+
+        /* --- MAIN TACTICAL VIEW --- */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            position: relative;
+        }
+
+        .top-hud {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(0,0,0,0.4);
+        }
+
+        .sector-title h1 { font-size: 1.8rem; letter-spacing: -1px; }
+        .sector-title p { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--cyan-glow); }
+
+        .tactical-map {
+            flex-grow: 1;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop') center/cover;
+            filter: grayscale(1) brightness(0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mesh-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        .radar-ping {
+            position: absolute;
+            width: 100px; height: 100px;
+            border: 2px solid var(--cyan-glow);
+            border-radius: 50%;
+            animation: ping 4s infinite linear;
+        }
+
+        @keyframes ping {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+
+        /* --- THREAT LOG --- */
+        .threat-log {
+            height: 250px;
+            background: #000;
+            border-top: 1px solid var(--border);
+            padding: 20px;
+            font-family: 'JetBrains Mono';
+            overflow-y: auto;
+        }
+
+        .log-entry { margin-bottom: 8px; font-size: 0.75rem; border-left: 2px solid var(--cyan-glow); padding-left: 15px; }
+        .log-entry.alert { border-left-color: var(--emergency-red); color: var(--emergency-red); }
+
+        /* --- AUTH OVERLAY --- */
+        #operator-lock {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- OPERATOR HANDSHAKE -->
+    <div id="operator-lock">
+        <i class="fa-solid fa-shield-halved fa-beat" style="font-size: 4rem; color: var(--emergency-red); margin-bottom: 30px;"></i>
+        <h2 style="letter-spacing: 5px; text-transform: uppercase;">Operator Authentication Required</h2>
+        <p style="opacity: 0.5; margin-top: 10px; font-family: 'JetBrains Mono';">SCANNING FOR SOVEREIGN CLEARANCE...</p>
+        <button onclick="unlockCommand()" style="margin-top: 40px; background: var(--emergency-red); color: #000; border: none; padding: 15px 40px; font-weight: 900; cursor: pointer; text-transform: uppercase;">Initiate Handshake</button>
+    </div>
+
+    <aside>
+        <div class="cmd-brand">High Command // Sentinel</div>
+        
+        <ul class="swarm-status">
+            <li class="swarm-item">
+                <h5>Vanguard-Class (Security)</h5>
+                <div class="stats"><span class="count">240 Units</span> <div class="status-dot"></div></div>
+            </li>
+            <li class="swarm-item">
+                <h5>Arachne-Class (Building Medics)</h5>
+                <div class="stats"><span class="count">1,102 Units</span> <div class="status-dot"></div></div>
+            </li>
+            <li class="swarm-item">
+                <h5>Sentinel Swarm (Internal)</h5>
+                <div class="stats"><span class="count">4,500 Units</span> <div class="status-dot"></div></div>
+            </li>
+            <li class="swarm-item">
+                <h5>Hydra-Class (Aquatic)</h5>
+                <div class="stats"><span class="count">85 Units</span> <div class="status-dot"></div></div>
+            </li>
+        </ul>
+
+        <div class="override-panel">
+            <h4 style="font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.4; margin-bottom: 20px; text-transform: uppercase;">Manual Override Controls</h4>
+            <button class="btn-emergency" onclick="triggerAlert('WALL_RAISE')">Raise 45° Walls</button>
+            <button class="btn-emergency" onclick="triggerAlert('DOME_SEAL')">Seal Dome Firmament</button>
+            <button class="btn-emergency" style="border-color: var(--warning-amber); color: var(--warning-amber);" onclick="triggerAlert('MESH_PURGE')">7G Mesh Purge</button>
+        </div>
+    </aside>
+
+    <main>
+        <div class="top-hud">
+            <div class="sector-title">
+                <h1>GLOBAL SECTOR VIEW</h1>
+                <p>UPLINK: PHL-01 // COORDS: 28°23'N 64°12'W</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--emergency-red);">ALERT LEVEL: NOMINAL</div>
+                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.6;">OPERATOR: SOLOMON_KIN_LLC</div>
+            </div>
+        </div>
+
+        <div class="tactical-map">
+            <div class="mesh-grid"></div>
+            <div class="radar-ping"></div>
+            <div style="z-index: 10; text-align: center;">
+                <div style="color: var(--cyan-glow); font-family: 'JetBrains Mono'; font-size: 0.8rem;">[ NO THREATS DETECTED ]</div>
+                <div style="font-size: 0.6rem; opacity: 0.4; margin-top: 10px;">SCANNING 7G SPECTRUM...</div>
+            </div>
+        </div>
+
+        <div class="threat-log" id="log-terminal">
+            <div class="log-entry">[00:00:01] COMMAND_BOOT: Sentinel Mainframe Initialized.</div>
+            <div class="log-entry">[00:00:05] MESH_SYNC: 25,420 Resident Nodes Verified.</div>
+            <div class="log-entry">[00:00:12] SODR_CHECK: Cooling efficiency at 99.8%. No leaks detected.</div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // FALL-SAFE INITIALIZATION
+        const firebaseConfig = JSON.parse(window.localStorage.getItem('__firebase_config') || '{}');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            // No redirect here so we can see the UI in simulation, but we'll lock the overlay
+        });
+
+        window.unlockCommand = async () => {
+            const btn = document.querySelector('#operator-lock button');
+            btn.innerText = "AUTHENTICATING...";
+            await new Promise(r => setTimeout(r, 2000));
+            document.getElementById('operator-lock').style.display = 'none';
+            addLog("OPERATOR_CLEARANCE_ACCEPTED: Welcome, Solomon Kin.");
+        };
+
+        window.triggerAlert = (type) => {
+            const terminal = document.getElementById('log-terminal');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry alert';
+            const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+            entry.innerHTML = `[${timestamp}] <strong>MANUAL_OVERRIDE:</strong> ${type} initiated by Operator.`;
+            terminal.prepend(entry);
+        };
+
+        function addLog(msg) {
+            const terminal = document.getElementById('log-terminal');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+            entry.innerHTML = `[${timestamp}] ${msg}`;
+            terminal.prepend(entry);
+        }
+
+        // Live Log Simulation
+        setInterval(() => {
+            const events = ["VANGUARD_PATROL_SYNC", "MESH_HANDSHAKE_RECORDED", "SODR_THERMAL_STABLE", "ATMOS_DOME_SELF_CLEAN"];
+            const randomMsg = events[Math.floor(Math.random() * events.length)];
+            addLog(randomMsg);
+        }, 8000);
+
+    </script>
+</body>
+</html>
